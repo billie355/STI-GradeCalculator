@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -160,7 +161,8 @@
             border-radius: 10px;
             text-align: center;
             background: linear-gradient(to right, #f8f9fa, #e9ecef);
-            display: none; /* Hidden by default */
+            display: none;
+            /* Hidden by default */
             border-left: 5px solid var(--sti-blue);
         }
 
@@ -185,7 +187,7 @@
             padding: 5px 15px;
             border-radius: 20px;
             display: inline-block;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .status {
@@ -197,18 +199,37 @@
             text-transform: uppercase;
         }
 
-        .status.passed { color: #28a745; }
-        .status.failed { color: #dc3545; }
+        .status.passed {
+            color: #28a745;
+        }
+
+        .status.failed {
+            color: #dc3545;
+        }
 
         /* Animations */
         @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         /* Responsive */
@@ -217,8 +238,14 @@
                 padding: 1.5rem;
                 width: 95%;
             }
-            .header h1 { font-size: 1.5rem; }
-            .final-grade { font-size: 2rem; }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .final-grade {
+                font-size: 2rem;
+            }
         }
 
         .nav-link {
@@ -233,6 +260,7 @@
             border-radius: 5px;
             transition: background 0.2s;
         }
+
         .nav-link:hover {
             background-color: #f0f8ff;
             text-decoration: none;
@@ -259,127 +287,6 @@
             text-decoration: underline;
         }
 
-        /* GCash QR Floating Button */
-        .bmc-fab {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            color: #fff;
-            font-weight: 700;
-            font-size: 0.95rem;
-            padding: 13px 20px;
-            border-radius: 50px;
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            cursor: pointer;
-            z-index: 9999;
-            transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-            white-space: nowrap;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.25);
-        }
-        .bmc-fab:hover {
-            transform: scale(1.07);
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.45);
-        }
-        .bmc-fab svg { width: 22px; height: 22px; flex-shrink: 0; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3)); }
-
-        /* GCash QR Modal */
-        .gcash-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.55);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-        }
-        .gcash-overlay.active { display: flex; }
-        .gcash-modal {
-            background: #fff;
-            border-radius: 18px;
-            padding: 28px 28px 24px;
-            max-width: 320px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.25);
-            position: relative;
-            animation: popIn 0.25s cubic-bezier(0.2,0.8,0.2,1);
-        }
-        @keyframes popIn {
-            from { opacity: 0; transform: scale(0.85); }
-            to   { opacity: 1; transform: scale(1); }
-        }
-        .gcash-modal h3 {
-            color: #0072bc;
-            font-size: 1.1rem;
-            margin-bottom: 14px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            font-family: 'Pacifico', cursive;
-        }
-        .gcash-modal img {
-            width: 100%;
-            max-width: 220px;
-            border-radius: 10px;
-            border: 2px solid #e0e0e0;
-            margin-bottom: 16px;
-        }
-        .gcash-info {
-            font-size: 0.95rem;
-            color: #333;
-            line-height: 1.7;
-        }
-        .gcash-info .gcash-name {
-            font-weight: 800;
-            font-size: 1.15rem;
-            color: #0072bc;
-            letter-spacing: 0.5px;
-        }
-        .gcash-info .gcash-num {
-            color: #555;
-            font-size: 0.9rem;
-        }
-        .gcash-close {
-            position: absolute;
-            top: 12px;
-            right: 14px;
-            background: none;
-            border: none;
-            font-size: 1.4rem;
-            cursor: pointer;
-            color: #aaa;
-            line-height: 1;
-            transition: color 0.2s;
-        }
-        .gcash-close:hover { color: #333; }
-
-        .gcash-dl {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 4px;
-            margin-bottom: 12px;
-            padding: 8px 18px;
-            background: #0072bc;
-            color: #fff;
-            font-size: 0.82rem;
-            font-weight: 700;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: background 0.2s ease, transform 0.2s ease;
-        }
-        .gcash-dl:hover {
-            background: #005082;
-            transform: scale(1.05);
-        }
-
         /* PWA Install Button */
         .pwa-install-btn {
             display: flex;
@@ -395,25 +302,35 @@
             padding: 12px 20px;
             border-radius: 50px;
             border: none;
-            box-shadow: 0 4px 20px rgba(255, 242, 0, 0.5), 0 2px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 20px rgba(255, 242, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.2);
             cursor: pointer;
             z-index: 9998;
             transition: transform 0.25s ease, box-shadow 0.25s ease;
             white-space: nowrap;
             animation: pulse-pwa 2s infinite;
         }
+
         .pwa-install-btn:hover {
             transform: scale(1.07) translateY(-2px);
-            box-shadow: 0 8px 28px rgba(255, 242, 0, 0.7), 0 4px 12px rgba(0,0,0,0.25);
+            box-shadow: 0 8px 28px rgba(255, 242, 0, 0.7), 0 4px 12px rgba(0, 0, 0, 0.25);
         }
+
         .pwa-install-btn .pwa-icon {
             width: 20px;
             height: 20px;
             flex-shrink: 0;
         }
+
         @keyframes pulse-pwa {
-            0%, 100% { box-shadow: 0 4px 20px rgba(255,242,0,0.5), 0 2px 8px rgba(0,0,0,0.2); }
-            50% { box-shadow: 0 4px 30px rgba(255,242,0,0.85), 0 2px 12px rgba(0,0,0,0.25); }
+
+            0%,
+            100% {
+                box-shadow: 0 4px 20px rgba(255, 242, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 4px 30px rgba(255, 242, 0, 0.85), 0 2px 12px rgba(0, 0, 0, 0.25);
+            }
         }
 
         /* PWA Instructions Modal */
@@ -421,12 +338,16 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.6);
             z-index: 10001;
             justify-content: center;
             align-items: center;
         }
-        .pwa-overlay.active { display: flex; }
+
+        .pwa-overlay.active {
+            display: flex;
+        }
+
         .pwa-modal {
             background: #fff;
             border-radius: 18px;
@@ -434,27 +355,31 @@
             max-width: 340px;
             width: 92%;
             text-align: center;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
             position: relative;
-            animation: popIn 0.25s cubic-bezier(0.2,0.8,0.2,1);
+            animation: popIn 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
+
         .pwa-modal-title {
             color: #0072bc;
             font-size: 1.15rem;
             font-weight: 800;
             margin-bottom: 6px;
         }
+
         .pwa-modal-sub {
             color: #666;
             font-size: 0.82rem;
             margin-bottom: 18px;
         }
+
         .pwa-steps {
             text-align: left;
             list-style: none;
             padding: 0;
             margin: 0 0 18px 0;
         }
+
         .pwa-steps li {
             display: flex;
             align-items: flex-start;
@@ -464,6 +389,7 @@
             color: #333;
             line-height: 1.45;
         }
+
         .pwa-steps li .step-num {
             min-width: 24px;
             height: 24px;
@@ -477,6 +403,7 @@
             font-weight: 800;
             flex-shrink: 0;
         }
+
         .pwa-modal-close {
             position: absolute;
             top: 12px;
@@ -491,13 +418,18 @@
             flex: none;
             padding: 0;
         }
-        .pwa-modal-close:hover { color: #333; }
+
+        .pwa-modal-close:hover {
+            color: #333;
+        }
+
         .pwa-browser-tabs {
             display: flex;
             gap: 8px;
             justify-content: center;
             margin-bottom: 16px;
         }
+
         .pwa-browser-tab {
             padding: 6px 14px;
             border-radius: 20px;
@@ -509,6 +441,7 @@
             color: #555;
             transition: all 0.2s;
         }
+
         .pwa-browser-tab.active {
             background: #0072bc;
             border-color: #0072bc;
@@ -516,23 +449,6 @@
         }
 
         @media (max-width: 480px) {
-            .bmc-fab {
-                bottom: 16px;
-                right: 16px;
-                font-size: 0.82rem;
-                padding: 10px 15px;
-                gap: 7px;
-                background: #29abe0;
-                backdrop-filter: none;
-                -webkit-backdrop-filter: none;
-                border: none;
-                box-shadow: 0 4px 18px rgba(41,171,224,0.45);
-                text-shadow: none;
-            }
-            .bmc-fab:hover {
-                background: #1a9fd4;
-                box-shadow: 0 8px 28px rgba(41,171,224,0.6);
-            }
             .pwa-install-btn {
                 bottom: 80px;
                 right: 16px;
@@ -542,6 +458,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="container">
@@ -609,7 +526,7 @@
 
             // Formula: (P*0.2) + (M*0.2) + (PF*0.2) + (F*0.4)
             let weightedAverage = (prelim * 0.20) + (midterm * 0.20) + (prefi * 0.20) + (finals * 0.40);
-            
+
             // Round to 2 decimal places for evaluation to match display
             weightedAverage = Math.round(weightedAverage * 100) / 100;
 
@@ -620,16 +537,16 @@
             const statusText = document.getElementById('statusText');
 
             resultBox.classList.remove('show');
-            
+
             // Re-trigger animation
-            void resultBox.offsetWidth; 
+            void resultBox.offsetWidth;
             resultBox.classList.add('show');
 
             // Count up animation logic
             let start = 0;
             const duration = 1000;
             const stepTime = Math.abs(Math.floor(duration / weightedAverage));
-            
+
             // Simple display update
             finalGradeDisplay.innerText = weightedAverage.toFixed(2);
 
@@ -723,9 +640,10 @@
 
     <!-- PWA Install Button -->
     <button class="pwa-install-btn" id="pwaInstallBtn" onclick="openPwaModal()">
-        <svg class="pwa-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 16l-4-4h2.5V4h3v8H16l-4 4z"/>
-            <path d="M20 18H4v2h16v-2z"/>
+        <svg class="pwa-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 16l-4-4h2.5V4h3v8H16l-4 4z" />
+            <path d="M20 18H4v2h16v-2z" />
         </svg>
         Download App
     </button>
@@ -744,50 +662,42 @@
 
             <!-- Chrome Steps -->
             <ul class="pwa-steps pwa-instructions" id="steps-chrome" style="display:block">
-                <li><span class="step-num">1</span><span>I-open ang website sa <strong>Google Chrome</strong> browser</span></li>
-                <li><span class="step-num">2</span><span>I-click ang <strong>⋮ (three dots)</strong> sa kanang taas ng browser</span></li>
-                <li><span class="step-num">3</span><span>I-click ang <strong>&quot;Install STI Grade Calculator...&quot;</strong> o <strong>&quot;Add to Home Screen&quot;</strong></span></li>
-                <li><span class="step-num">4</span><span>I-click ang <strong>Install</strong> para ma-download ang app! ✅</span></li>
+                <li><span class="step-num">1</span><span>I-open ang website sa <strong>Google Chrome</strong>
+                        browser</span></li>
+                <li><span class="step-num">2</span><span>I-click ang <strong>⋮ (three dots)</strong> sa kanang taas ng
+                        browser</span></li>
+                <li><span class="step-num">3</span><span>I-click ang <strong>&quot;Install STI Grade
+                            Calculator...&quot;</strong> o <strong>&quot;Add to Home Screen&quot;</strong></span></li>
+                <li><span class="step-num">4</span><span>I-click ang <strong>Install</strong> para ma-download ang app!
+                        ✅</span></li>
             </ul>
 
             <!-- Edge Steps -->
             <ul class="pwa-steps pwa-instructions" id="steps-edge" style="display:none">
-                <li><span class="step-num">1</span><span>I-open ang website sa <strong>Microsoft Edge</strong> browser</span></li>
-                <li><span class="step-num">2</span><span>I-click ang <strong>... (three dots)</strong> sa kanang taas ng browser</span></li>
-                <li><span class="step-num">3</span><span>I-click ang <strong>&quot;Apps&quot;</strong> → <strong>&quot;Install this site as an app&quot;</strong></span></li>
-                <li><span class="step-num">4</span><span>I-click ang <strong>Install</strong> para ma-download ang app! ✅</span></li>
+                <li><span class="step-num">1</span><span>I-open ang website sa <strong>Microsoft Edge</strong>
+                        browser</span></li>
+                <li><span class="step-num">2</span><span>I-click ang <strong>... (three dots)</strong> sa kanang taas ng
+                        browser</span></li>
+                <li><span class="step-num">3</span><span>I-click ang <strong>&quot;Apps&quot;</strong> →
+                        <strong>&quot;Install this site as an app&quot;</strong></span></li>
+                <li><span class="step-num">4</span><span>I-click ang <strong>Install</strong> para ma-download ang app!
+                        ✅</span></li>
             </ul>
 
             <!-- iOS Safari Steps -->
             <ul class="pwa-steps pwa-instructions" id="steps-ios" style="display:none">
-                <li><span class="step-num">1</span><span>I-open ang website sa <strong>Safari</strong> sa iPhone/iPad</span></li>
-                <li><span class="step-num">2</span><span>I-tap ang <strong>Share button (📤)</strong> sa ibaba ng screen</span></li>
-                <li><span class="step-num">3</span><span>I-scroll down at i-tap ang <strong>&quot;Add to Home Screen&quot;</strong></span></li>
+                <li><span class="step-num">1</span><span>I-open ang website sa <strong>Safari</strong> sa
+                        iPhone/iPad</span></li>
+                <li><span class="step-num">2</span><span>I-tap ang <strong>Share button (📤)</strong> sa ibaba ng
+                        screen</span></li>
+                <li><span class="step-num">3</span><span>I-scroll down at i-tap ang <strong>&quot;Add to Home
+                            Screen&quot;</strong></span></li>
                 <li><span class="step-num">4</span><span>I-tap ang <strong>Add</strong> para ma-install! ✅</span></li>
             </ul>
         </div>
     </div>
 
-    <!-- GCash QR Floating Button -->
-    <button class="bmc-fab" onclick="document.getElementById('gcashModal').classList.add('active')">
-        <span style="font-size:1.3rem;line-height:1;">🍩</span>
-        Buy Me a Donut
-    </button>
 
-    <!-- GCash QR Modal -->
-    <div class="gcash-overlay" id="gcashModal" onclick="if(event.target===this)this.classList.remove('active')">
-        <div class="gcash-modal">
-            <button class="gcash-close" onclick="document.getElementById('gcashModal').classList.remove('active')">&times;</button>
-            <h3>🍩 Buy me a donut</h3>
-            <img src="qr.png" alt="GCash QR Code">
-            <a class="gcash-dl" href="qr.png" download="GCash-QR.png">
-                💾 Download QR
-            </a>
-            <div class="gcash-info">
-                <div class="gcash-name">BI**Y J** S.</div>
-                <div class="gcash-num">+63 922 546 ****</div>
-            </div>
-        </div>
-    </div>
 </body>
+
 </html>
