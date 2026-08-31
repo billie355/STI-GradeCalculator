@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'sti-grade-calc-v2';
+const CACHE_VERSION = 'sti-grade-calc-v6';
 const CRITICAL_CACHE = CACHE_VERSION + '-critical';
 const LAZY_CACHE = CACHE_VERSION + '-lazy';
 
@@ -7,6 +7,8 @@ const CRITICAL_ASSETS = [
   './',
   './index.html',
   './target.html',
+  './multi.html',
+  './style.css',
   './manifest.json'
 ];
 

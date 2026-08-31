@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STI Grade Calculator</title>
+    <title>STI Multi-Subject Calculator</title>
     <link rel="icon" type="image/png" href="icon.png">
     <link rel="apple-touch-icon" href="icon.png">
     <link rel="manifest" href="manifest.json">
@@ -19,43 +19,26 @@
         <div class="panel-left">
 
         <div class="header">
-            <h1>Grade Computer</h1>
-            <p>STI College Grading System</p>
+            <h1>Semester GWA</h1>
+            <p>Calculate your overall semester grade</p>
         </div>
 
-        <div class="input-group">
-            <label for="prelim">Prelim Grade</label>
-            <input type="number" id="prelim" placeholder="0 - 100" min="0" max="100">
-            <span class="weight-badge">20%</span>
+        
+        <div id="subjectsContainer">
+            <!-- Subject rows -->
         </div>
-
-        <div class="input-group">
-            <label for="midterm">Midterm Grade</label>
-            <input type="number" id="midterm" placeholder="0 - 100" min="0" max="100">
-            <span class="weight-badge">20%</span>
-        </div>
-
-        <div class="input-group">
-            <label for="prefi">Pre-Finals Grade</label>
-            <input type="number" id="prefi" placeholder="0 - 100" min="0" max="100">
-            <span class="weight-badge">20%</span>
-        </div>
-
-        <div class="input-group">
-            <label for="finals">Finals Grade</label>
-            <input type="number" id="finals" placeholder="0 - 100" min="0" max="100">
-            <span class="weight-badge">40%</span>
-        </div>
+        <button class="btn-add" onclick="addSubject()" style="background-color: #28a745; color: white; padding: 10px; margin-bottom: 20px; width: 100%; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">+ Add Subject</button>
 
         
         </div>
         <div class="panel-right">
 <div class="btn-container">
             <button class="btn-reset" onclick="resetForm()">Reset</button>
-            <button class="btn-compute" onclick="computeGrade()">Compute Grade</button>
+            <button class="btn-compute" onclick="computeGWA()">Compute GWA</button>
         </div>
 
         <div class="result-box" id="resultBox">
+
             <p style="font-size: 0.9rem; color: #666;">Weighted Average</p>
             <div class="final-grade" id="finalGrade">00.00</div>
             <div class="point-grade" id="pointGrade">GWA: 0.00</div>
@@ -64,8 +47,8 @@
         </div>
 
         <div style="display: flex; gap: 10px; margin-top: 1.5rem;">
+            <a href="index.html" class="nav-link" style="margin-top: 0; flex: 1;">← Grade Computer</a>
             <a href="target.html" class="nav-link" style="margin-top: 0; flex: 1;">Target Grade →</a>
-            <a href="multi.html" class="nav-link" style="margin-top: 0; flex: 1;">Multi-Subject →</a>
         </div>
 
         <div class="footer">
@@ -76,104 +59,134 @@
 </div>
 
     <script>
-        function computeGrade() {
-            // Get values
-            const prelim = parseFloat(document.getElementById('prelim').value) || 0;
-            const midterm = parseFloat(document.getElementById('midterm').value) || 0;
-            const prefi = parseFloat(document.getElementById('prefi').value) || 0;
-            const finals = parseFloat(document.getElementById('finals').value) || 0;
+        const stiGrades = [1.00, 1.25, 1.50, 1.75, 2.00, 2.25, 2.50, 2.75, 3.00, 5.00];
 
-            // Validation: Ensure values are within 0-100 (Optional strictness)
-            if (prelim > 100 || midterm > 100 || prefi > 100 || finals > 100) {
-                alert("Please enter grades between 0 and 100 only.");
+        function createSubjectRow() {
+            const row = document.createElement('div');
+            row.className = 'subject-row';
+            
+            row.innerHTML = `
+                <input type="text" class="subject-row-input subject-name" placeholder="Subject">
+                <input type="number" class="subject-row-input subject-units" placeholder="Units" value="3" min="1" max="6">
+                <select class="subject-row-input subject-grade">
+                    <option value="" disabled selected>Grade</option>
+                    ${stiGrades.map(g => `<option value="${g}">${g.toFixed(2)}</option>`).join('')}
+                </select>
+                <button onclick="this.parentElement.remove()" class="subject-row-remove">✕</button>
+            `;
+            return row;
+        }
+
+        function addSubject() {
+            document.getElementById('subjectsContainer').appendChild(createSubjectRow());
+        }
+
+        function computeGWA() {
+            const rows = document.querySelectorAll('.subject-row');
+            let totalUnits = 0;
+            let totalGradePoints = 0;
+            let hasMissingGrades = false;
+            let hasFailingGrade = false;
+
+            rows.forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                const select = row.querySelector('select');
+                
+                const units = parseFloat(inputs[1].value);
+                const grade = parseFloat(select.value);
+
+                if (isNaN(units) || isNaN(grade)) {
+                    hasMissingGrades = true;
+                } else {
+                    totalUnits += units;
+                    totalGradePoints += (grade * units);
+                    if (grade > 3.00) {
+                        hasFailingGrade = true;
+                    }
+                }
+            });
+
+            if (hasMissingGrades || rows.length === 0) {
+                alert("Please fill in units and grades for all subjects.");
                 return;
             }
 
-            // Formula: (P*0.2) + (M*0.2) + (PF*0.2) + (F*0.4)
-            let weightedAverage = (prelim * 0.20) + (midterm * 0.20) + (prefi * 0.20) + (finals * 0.40);
-
-            // Round to 2 decimal places for evaluation to match display
-            weightedAverage = Math.round(weightedAverage * 100) / 100;
-
-            // Display Weighted Average
+            const overallGWA = totalGradePoints / totalUnits;
+            
             const resultBox = document.getElementById('resultBox');
             const finalGradeDisplay = document.getElementById('finalGrade');
             const pointGradeDisplay = document.getElementById('pointGrade');
             const statusText = document.getElementById('statusText');
+            const deansBadge = document.getElementById('deansBadge');
 
             resultBox.classList.remove('show');
-
-            // Re-trigger animation
             void resultBox.offsetWidth;
             resultBox.classList.add('show');
 
-            // Count up animation logic
-            let start = 0;
-            const duration = 1000;
-            const stepTime = Math.abs(Math.floor(duration / weightedAverage));
-
-            // Simple display update
-            finalGradeDisplay.innerText = weightedAverage.toFixed(2);
-
-            // Transmutation to Point Grade (Standard PH College System Approx)
-            let point = 5.00;
-            let status = "FAILED";
-            let statusClass = "failed";
-
-            if (weightedAverage >= 97.50) point = 1.00;
-            else if (weightedAverage >= 94.50) point = 1.25;
-            else if (weightedAverage >= 91.50) point = 1.50;
-            else if (weightedAverage >= 86.50) point = 1.75;
-            else if (weightedAverage >= 81.50) point = 2.00;
-            else if (weightedAverage >= 76.00) point = 2.25;
-            else if (weightedAverage >= 70.50) point = 2.50;
-            else if (weightedAverage >= 65.00) point = 2.75;
-            else if (weightedAverage >= 59.50) point = 3.00;
-            else point = 5.00;
-
-            if (point <= 3.00) {
-                status = "PASSED";
-                statusClass = "passed";
+            finalGradeDisplay.innerText = overallGWA.toFixed(2);
+            pointGradeDisplay.innerText = `Total Units: ${totalUnits}`;
+            
+            if (overallGWA <= 3.00 && !hasFailingGrade) {
+                statusText.innerText = "PASSED SEMESTER";
+                statusText.className = "status passed";
+            } else {
+                statusText.innerText = "FAILED SEMESTER";
+                statusText.className = "status failed";
             }
 
-            pointGradeDisplay.innerText = `GWA: ${point.toFixed(2)}`;
-            statusText.innerText = status;
-            statusText.className = `status ${statusClass}`;
-
-            // Dean's Lister Badge logic (1.75 or better)
-            const deansBadge = document.getElementById('deansBadge');
-            if (point <= 1.75) {
+            if (overallGWA <= 1.75 && !hasFailingGrade) {
                 deansBadge.classList.add('show');
             } else {
                 deansBadge.classList.remove('show');
             }
 
-            // Save grades to localStorage
-            localStorage.setItem('sti-grades', JSON.stringify({ prelim, midterm, prefi, finals }));
+            saveData();
         }
 
         function resetForm() {
-            document.getElementById('prelim').value = '';
-            document.getElementById('midterm').value = '';
-            document.getElementById('prefi').value = '';
-            document.getElementById('finals').value = '';
+            document.getElementById('subjectsContainer').innerHTML = '';
+            for(let i=0; i<6; i++) addSubject(); // Default 6 subjects
             document.getElementById('resultBox').classList.remove('show');
-            localStorage.removeItem('sti-grades');
+            localStorage.removeItem('sti-multi-grades');
         }
 
-        window.onload = function() {
-            // Load saved grades on page load
-            const savedGrades = JSON.parse(localStorage.getItem('sti-grades'));
-            if (savedGrades) {
-                if (savedGrades.prelim) document.getElementById('prelim').value = savedGrades.prelim;
-                if (savedGrades.midterm) document.getElementById('midterm').value = savedGrades.midterm;
-                if (savedGrades.prefi) document.getElementById('prefi').value = savedGrades.prefi;
-                if (savedGrades.finals) document.getElementById('finals').value = savedGrades.finals;
-                // Don't auto-compute, let the user click compute if they want to
-            }
-        };
+        function saveData() {
+            const rows = document.querySelectorAll('.subject-row');
+            const data = [];
+            rows.forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                const select = row.querySelector('select');
+                data.push({
+                    name: inputs[0].value,
+                    units: inputs[1].value,
+                    grade: select.value
+                });
+            });
+            localStorage.setItem('sti-multi-grades', JSON.stringify(data));
+        }
 
-    </script>
+        function loadData() {
+            const saved = JSON.parse(localStorage.getItem('sti-multi-grades'));
+            const container = document.getElementById('subjectsContainer');
+            container.innerHTML = '';
+            
+            if (saved && saved.length > 0) {
+                saved.forEach(item => {
+                    const row = createSubjectRow();
+                    const inputs = row.querySelectorAll('input');
+                    const select = row.querySelector('select');
+                    inputs[0].value = item.name || '';
+                    inputs[1].value = item.units || '';
+                    select.value = item.grade || '';
+                    container.appendChild(row);
+                });
+            } else {
+                for(let i=0; i<6; i++) addSubject();
+            }
+        }
+
+        window.onload = loadData;
+</script>
 
     <script>
         // Register Service Worker for PWA (enables offline use)
