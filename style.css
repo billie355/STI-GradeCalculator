@@ -390,6 +390,13 @@ button {
     50% { box-shadow: 0 6px 35px rgba(255, 242, 0, 0.7); }
 }
 
+/* Hide PWA install button when app is running as PWA (standalone mode) */
+@media all and (display-mode: standalone) {
+    .pwa-install-btn {
+        display: none !important;
+    }
+}
+
 /* Modals */
 .pwa-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 10001; justify-content: center; align-items: center; }
 .pwa-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
